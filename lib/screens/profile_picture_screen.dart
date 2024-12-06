@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ProfilePictureScreen extends StatefulWidget {
-  final Function(String) onPictureSelected; // Callback para devolver la URL seleccionada
+  final Function(String) onPictureSelected;
 
   ProfilePictureScreen({required this.onPictureSelected});
 
@@ -18,7 +18,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
   List<dynamic> _players = [];
   bool _isLoading = false;
 
-  // Método para buscar jugadores usando la API
+  // APIを使って選手を検索
   Future<void> _searchPlayers(String query) async {
     setState(() {
       _isLoading = true;
@@ -49,12 +49,12 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error al obtener datos: ${response.statusCode}')),
+          SnackBar(content: Text('データ取得エラー: ${response.statusCode}')),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al buscar jugadores: $e')),
+        SnackBar(content: Text('選手検索エラー: $e')),
       );
     } finally {
       setState(() {
@@ -67,7 +67,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Seleccionar Imagen de Perfil'),
+        title: Text('プロフィール画像の選択'),
         backgroundColor: Colors.amber,
         iconTheme: IconThemeData(color: Colors.black),
       ),
@@ -78,7 +78,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
             TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                labelText: 'Buscar jugador',
+                labelText: '選手を検索',
                 suffixIcon: IconButton(
                   icon: Icon(Icons.search),
                   onPressed: () {
@@ -86,7 +86,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                       _searchPlayers(_searchController.text.trim());
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Ingrese al menos 3 caracteres')),
+                        SnackBar(content: Text('3文字以上入力してください')),
                       );
                     }
                   },
@@ -98,7 +98,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                 ? Center(child: CircularProgressIndicator())
                 : Expanded(
                     child: _players.isEmpty
-                        ? Center(child: Text('No se encontraron jugadores'))
+                        ? Center(child: Text('選手が見つかりませんでした'))
                         : ListView.builder(
                             itemCount: _players.length,
                             itemBuilder: (context, index) {
@@ -109,8 +109,8 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                                 leading: CircleAvatar(
                                   backgroundImage: NetworkImage(photoUrl),
                                 ),
-                                title: Text(player['name'] ?? 'Jugador desconocido'),
-                                subtitle: Text(player['birth']['date'] ?? 'Fecha desconocida'),
+                                title: Text(player['name'] ?? '名前不明'),
+                                subtitle: Text(player['birth']['date'] ?? '生年月日不明'),
                                 onTap: () {
                                   widget.onPictureSelected(photoUrl);
                                   Navigator.pop(context);

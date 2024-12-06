@@ -46,11 +46,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _loadUserData();
       setState(() {});
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Nombre actualizado exitosamente')),
+        SnackBar(content: Text('ユーザー名が更新されました。')),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al actualizar nombre: $e')),
+        SnackBar(content: Text('ユーザー名の更新中にエラーが発生しました: $e')),
       );
     }
   }
@@ -62,11 +62,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _loadUserData();
       setState(() {});
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Correo actualizado exitosamente')),
+        SnackBar(content: Text('メールアドレスが更新されました。')),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al actualizar correo: $e')),
+        SnackBar(content: Text('メールアドレスの更新中にエラーが発生しました: $e')),
       );
     }
   }
@@ -75,11 +75,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       await _user?.updatePassword(_passwordController.text);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Contraseña actualizada exitosamente')),
+        SnackBar(content: Text('パスワードが更新されました。')),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al actualizar contraseña: $e')),
+        SnackBar(content: Text('パスワードの更新中にエラーが発生しました: $e')),
       );
     }
   }
@@ -88,12 +88,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       await _user?.delete();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Usuario eliminado exitosamente')),
+        SnackBar(content: Text('アカウントが削除されました。')),
       );
-      Navigator.of(context).pop(); // Cierra el ProfileScreen
+      Navigator.of(context).pop(); // プロファイル画面を閉じる
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al eliminar usuario: $e')),
+        SnackBar(content: Text('アカウントの削除中にエラーが発生しました: $e')),
+      );
+    }
+  }
+
+  Future<void> _updatePhotoUrl(String photoUrl) async {
+    setState(() {
+      _photoUrl = photoUrl;
+    });
+
+    try {
+      await _user?.updatePhotoURL(photoUrl);
+      await _user?.reload();
+      _user = _auth.currentUser;
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('写真の更新中にエラーが発生しました: $e')),
       );
     }
   }
@@ -102,7 +118,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Perfil de usuario'),
+        title: Text('プロフィール編集'),
         backgroundColor: Colors.amber,
         iconTheme: IconThemeData(color: Colors.black),
       ),
@@ -189,21 +205,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
     );
-  }
-
-  Future<void> _updatePhotoUrl(String photoUrl) async {
-    setState(() {
-      _photoUrl = photoUrl;
-    });
-
-    try {
-      await _user?.updatePhotoURL(photoUrl);
-      await _user?.reload();
-      _user = _auth.currentUser;
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al actualizar la foto: $e')),
-      );
-    }
   }
 }
