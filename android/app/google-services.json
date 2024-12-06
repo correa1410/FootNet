@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "807249892823",
+    "project_id": "footnet-530f3",
+    "storage_bucket": "footnet-530f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807249892823:android:25c0488f982ba47baa2792",
+        "android_client_info": {
+          "package_name": "Footnet.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807249892823-ltme7u4u7u6pppnf4qmsvejoti9hf879.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlxPxMljSqPYFxdvB3ZCb4uROcZL00kX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807249892823-ltme7u4u7u6pppnf4qmsvejoti9hf879.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "807249892823-ku5m6esbesn7is4n8bv95t9bo6dee6ve.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.footnet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807249892823:android:8dcc87ac6ff948e5aa2792",
+        "android_client_info": {
+          "package_name": "com.footnet.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807249892823-ltme7u4u7u6pppnf4qmsvejoti9hf879.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlxPxMljSqPYFxdvB3ZCb4uROcZL00kX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807249892823-ltme7u4u7u6pppnf4qmsvejoti9hf879.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "807249892823-ku5m6esbesn7is4n8bv95t9bo6dee6ve.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.footnet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807249892823:android:cfb5813f1739afd5aa2792",
+        "android_client_info": {
+          "package_name": "footnet.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807249892823-ltme7u4u7u6pppnf4qmsvejoti9hf879.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlxPxMljSqPYFxdvB3ZCb4uROcZL00kX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807249892823-ltme7u4u7u6pppnf4qmsvejoti9hf879.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "807249892823-ku5m6esbesn7is4n8bv95t9bo6dee6ve.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.footnet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

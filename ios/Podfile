@@ -1,0 +1,68 @@
+# Define el objetivo mínimo de iOS como 13.0
+platform :ios, '13.0'
+
+# Desactivar estadísticas de CocoaPods para mejorar la latencia de compilación
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+project 'Runner', {
+  'Debug' => :debug,
+  'Profile' => :release,
+  'Release' => :release,
+}
+
+def flutter_root
+  generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
+  unless File.exist?(generated_xcode_build_settings_path)
+    raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
+  end
+
+  File.foreach(generated_xcode_build_settings_path) do |line|
+    matches = line.match(/FLUTTER_ROOT\=(.*)/)
+    return matches[1].strip if matches
+  end
+  raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
+end
+
+require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
+
+flutter_ios_podfile_setup
+
+target 'Runner' do
+  use_frameworks!
+  use_modular_headers!
+
+  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+
+  # Forzar la configuración base de CocoaPods
+  config = 'Pods/Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig'
+  project 'Runner' do |proj|
+    ['Debug', 'Profile', 'Release'].each do |config_name|
+      proj.build_configuration_list.build_configurations.each do |build_configuration|
+        if build_configuration.name == config_name
+          build_configuration.base_configuration_reference = proj.files.find { |file| file.path == config }
+        end
+      end
+    end
+  end
+
+  target 'RunnerTests' do
+    inherit! :search_paths
+  end
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+    target.build_configurations.each do |config|
+      # Configura el objetivo de implementación en 13.0
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+      
+      # Agregar configuración específica para BoringSSL-GRPC
+      if target.name == 'BoringSSL-GRPC'
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= []
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] << 'BORINGSSL_ALLOW_C_COMPILER_ERRORS'
+      end
+    end
+  end
+end
+
